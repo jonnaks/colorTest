@@ -1,0 +1,84 @@
+body, html{
+  height: 100%;
+}
+
+body{
+  background-size:     cover;
+  background-repeat:   no-repeat;
+  background-position: center center; 
+}
+
+#container{
+  width: 100%;
+  padding: 10px;
+  height: 100%;
+  overflow: hidden;
+}
+
+#div1 {
+    width: 1415px;
+    height: 400px;
+    padding: 10px;
+    border: 1px solid #aaaaaa;
+}
+
+#buttonDiv{
+  padding-top: 50px;
+}
+
+#buttonInWell{
+    margin:0 auto;
+    display:block;
+    padding: 30px
+}
+
+#viewHolder{
+  height: 100%;
+}
+
+#startView{
+  height: 70%;
+}
+
+#testView{
+  height: 60%;
+}
+
+#drag1 {
+  margin:5px;
+
+}
+
+#drag2 {
+  margin:5px;
+
+}
+#drag3 {
+  margin:5px;
+
+}
+#drag4 {
+  margin:5px;
+
+}
+#drag5 {
+  margin:5px;
+
+}
+#drag6 {
+  margin:5px;
+
+}
+#testOne{
+  height: 90%;
+}
+#imgDivInterval{
+  text-align:center;
+  overflow:hidden
+}
+#imageInterval{
+  vertical-align:middle;
+}
+#buttonInTest{
+  margin-left: 1100px;
+}

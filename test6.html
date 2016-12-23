@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dinner planner</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    
+  </head>
+  <body>
+    
+  <div class="container-fluid" id="container">
+    <div class="row row-eq-height" id="viewHolder">
+      <div id="testOne" class = "well well-lg">
+
+      </div>
+      <button id="buttonInTest" pe="button" class="btn btn-warning btn-responsive">Check Result</button>
+    </div>
+
+  </div>
+
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Bootstrap JavaScript, needed if you want for instance tabs, models, popovers etc. -->
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+    <script>
+
+      var BW = new Array("BW1.jpg", "BW2.jpg", "BW3.jpg", "BW4.jpg", "BW5.jpg");
+      var BW1 =  new Array(5);
+      var BW2 =  new Array(5);
+      var outPutList = new Array(5);
+
+      
+
+      window.onload = function(testSession){
+        //var testSession = 0;
+        //console.log("körs" + testSession);
+        document.getElementById('buttonInTest').style.visibility = 'hidden';
+        typeOfTest(testSession);
+      }
+
+
+      function typeOfTest(testSession){
+        // if (testSession == 5){
+
+        // } if (testSession == 4){
+
+        // } if (testSession == 3){
+
+        // } if (testSession == 2){
+
+        // } if (testSession == 1){
+
+        // } if (testSession == 0){
+          BW1 = shuffle(BW);
+          console.log(BW1);
+          timeBW1(BW1);
+
+        //}
+      }
+
+      var intervalID = "";
+
+      function timeBW1(getBW1){
+        console.log(getBW1);
+        BW1 = getBW1;
+        console.log(BW1);
+        intervalID = setInterval(advanceNewsItem, 1500);
+      }
+
+      function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+
+          // And swap it with the current element.
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+      }
+
+      var curNewsIndex = -1;
+
+      function advanceNewsItem() {
+          ++curNewsIndex;
+          console.log(BW1);
+          if (curNewsIndex == -1 || curNewsIndex >= BW1.length) {
+            //Gå till svaralternativen
+            console.log("Nu är jag inne i advancedNewsItem if1");
+            $("#testOne img").remove();
+
+            outPutList = new Array("BW5.jpg", "BW4.jpg", "BW2.jpg", "BW1.jpg", "BW3.jpg");
+
+            //outPutList = shuffle(BW); //Denna gör att även BW1 blir fucked up. BW1 blir samma som outPutList
+
+            $("#testOne").append('<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div><br><img id="drag1" src="imagesTest6/'+outPutList[0]+'"  draggable="true" ondragstart="drag(event)" width="265" height="177"><img id="drag2" src="imagesTest6/'+outPutList[1]+'"  draggable="true" ondragstart="drag(event)" width="265" height="177"><img id="drag3" src="imagesTest6/'+outPutList[2]+'"  draggable="true" ondragstart="drag(event)" width="265" height="177"><img id="drag4" src="imagesTest6/'+outPutList[3]+'"  draggable="true" ondragstart="drag(event)" width="265" height="177"><img id="drag5" src="imagesTest6/'+outPutList[4]+'"  draggable="true" ondragstart="drag(event)" width="265" height="177">');
+              console.log("Hur ser shuffled alternatives ut: "+outPutList);
+
+              document.getElementById('buttonInTest').style.visibility = 'visible';
+
+              clearInterval(intervalID);
+          } if (curNewsIndex == -1 || curNewsIndex < BW1.length){
+            var image = BW1[curNewsIndex];
+            $("#testOne").append('<div id="imgDivInterval"><img id="imageInterval" src="imagesTest6/'+image+'" alt="someimage" height="400" width="600"/></>');
+            console.log("if2: " + image);
+            console.log("Hur ser BW1 ut: " +BW1);
+          } if (!curNewsIndex == -1 || curNewsIndex < BW1.length){
+            $("#testOne img").remove();
+            image = BW1[curNewsIndex];
+            $("#testOne").append('<div id="imgDivInterval"><img id="imageInterval" src="imagesTest6/'+image+'" alt="someimage" height="400" width="600"/></>');
+            console.log("if3: "+ image);
+            console.log("Hur ser BW1 ut: " +BW1);
+          }
+          console.log(BW1[curNewsIndex]);
+          console.log("Hur ser BW1 ut: " +BW1);
+
+        }
+
+        function allowDrop(ev) {
+          console.log("Inne allowDrop");
+          ev.preventDefault();
+        }
+
+        function drag(ev) {
+          console.log("Inne Drag");
+          ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+          console.log("Inne Drop");
+          console.log(ev);
+          ev.preventDefault();
+          var data = ev.dataTransfer.getData("text");
+          ev.target.appendChild(document.getElementById(data));
+          console.log(data);
+          console.log(document.getElementById(data));
+        }
+
+        $( "#buttonInTest" ).click(function() {
+
+          compareLists();
+
+          window.location = "file:///Users/jonnakarlssonsellen/Desktop/Development/colorTest/test7.html";
+        });
+
+        function compareLists(){
+
+        var mainDiv = document.getElementById('div1'),
+          childDiv1 = mainDiv.getElementsByTagName('img')[0],
+          childDiv2 = mainDiv.getElementsByTagName('img')[1],
+          childDiv3 = mainDiv.getElementsByTagName('img')[2],
+          childDiv4 = mainDiv.getElementsByTagName('img')[3],
+          childDiv5 = mainDiv.getElementsByTagName('img')[4];
+
+          childDiv1 = childDiv1.src.split("/").pop();
+          childDiv2 = childDiv2.src.split("/").pop();
+          childDiv3 = childDiv3.src.split("/").pop();
+          childDiv4 = childDiv4.src.split("/").pop();
+          childDiv5 = childDiv5.src.split("/").pop();
+
+          var userSugBW = new Array();
+
+
+          userSugBW.push(childDiv1);
+          userSugBW.push(childDiv2);
+          userSugBW.push(childDiv3);
+          userSugBW.push(childDiv4);
+          userSugBW.push(childDiv5);
+
+          console.log("Anvandarens ordning: "+userSugBW);
+
+          console.log("Ordinare ordning: "+BW);
+
+          var numOfCorrAns = 0;
+
+          for (var i = 0; i < userSugBW.length; i++){
+            if(BW1[i] == userSugBW[i]){
+              numOfCorrAns++;
+            }
+          }
+          console.log(numOfCorrAns);
+          setCookie(numOfCorrAns);
+        }
+
+        function setCookie(num) {
+          //Kör endast i firefox
+          var d = new Date();
+          var expires = d.toUTCString();
+          document.cookie = "Test1: "+ num;
+
+          getCookies();
+        }
+
+        function getCookies() {
+          var ca = document.cookie;
+          alert(ca);
+        }
+
+    </script>
+  
+
+  </body>
+</html>
